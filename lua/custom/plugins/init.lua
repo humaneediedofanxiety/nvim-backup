@@ -1,5 +1,20 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
+vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>hh', ':split<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>zz', ':Telescope colorscheme<CR>')
+
+vim.keymap.set('n', '<leader>td', ':bd!<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tq', ':hide<CR>', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>tz', ':split | terminal<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tt', ':terminal<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+  end,
+})
+
 return {}
