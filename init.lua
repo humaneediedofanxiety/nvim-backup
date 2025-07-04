@@ -201,12 +201,23 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'php', 'html', 'htmldjango' },
   callback = function()
-    vim.lsp.buf.format { async = false }
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.softtabstop = 2
+    vim.bo.expandtab = true
+    vim.bo.smartindent = true
   end,
 })
+
+--  vim.api.nvim_create_autocmd('BufWritePre', {
+--  pattern = '*',
+--  callback = function()
+--    vim.lsp.buf.format { async = false }
+--  end,
+-- })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -707,7 +718,7 @@ require('lazy').setup({
         ts_ls = {},
         jdtls = {},
         tailwindcss = {},
-        phpactor = {},
+        intelephense = {},
         cssls = {},
         html = {},
 
@@ -791,7 +802,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, html = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -998,7 +1009,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'php', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
